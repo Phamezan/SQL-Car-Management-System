@@ -81,6 +81,7 @@ namespace Første_SQL.ViewModels
                 _carRepository.Update(existingCar);
             }
             RefreshList();
+            
         }
         
         public void DeleteCar(CarViewModel carToBeDeleted)
@@ -89,7 +90,7 @@ namespace Første_SQL.ViewModels
             Cars.Remove(carToBeDeleted);
         }
 
-        public void RefreshList()
+        public void RefreshList() //Fatter ikke hvorfor Listboxen i UI ikke opdateres når information for en bil ændre sig, så derfor gør denne metode jobbet
         {
             Cars.Clear();
             foreach (Car car in _carRepository.RetrieveAll())
