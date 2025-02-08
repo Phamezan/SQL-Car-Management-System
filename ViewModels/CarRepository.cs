@@ -23,7 +23,8 @@ namespace Første_SQL.ViewModels
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
-                con.Open(); using (SqlCommand cmd = new SqlCommand("INSERT INTO Car (Make, Model, Year, Description) " + "VALUES(@Make,@Model,@Year,@Description)" + "SELECT @@IDENTITY", con))
+                con.Open(); 
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO Car (Make, Model, Year, Description) " + "VALUES(@Make,@Model,@Year,@Description)" + "SELECT @@IDENTITY", con))
                 {
                     cmd.Parameters.Add("@Make", SqlDbType.NVarChar).Value = carToBeCreated.Make; 
                     cmd.Parameters.Add("@Model", SqlDbType.NVarChar).Value = carToBeCreated.Model; 
