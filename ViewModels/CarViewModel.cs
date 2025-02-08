@@ -65,15 +65,14 @@ namespace Første_SQL.ViewModels
         }
 
 
-        private string _description;
         public string Description
         {
             get => _car.Description;
             set
             {
-                if (_description != value)
+                if (_car.Description != value)
                 {
-                    _description = value;
+                    _car.Description = value;
                     OnPropertyChanged(nameof(Description));
                 }
             }

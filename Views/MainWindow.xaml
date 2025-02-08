@@ -53,7 +53,7 @@
                  FontSize="16"
                  Padding="4"
                  TextWrapping="Wrap"
-                 Text="{Binding Make}"
+                 Text="{Binding SelectedCar.Car.Make, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
                  Width="213"
                  Height="37"
@@ -65,7 +65,7 @@
                  FontSize="16"
                  Padding="4"
                  TextWrapping="Wrap"
-                 Text="{Binding Model}"
+                 Text="{Binding SelectedCar.Car.Model, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
                  Width="213"
                  Height="37"
@@ -76,7 +76,7 @@
                  TextWrapping="Wrap"
                  FontSize="16"
                  Padding="4"
-                 Text="{Binding Year}"
+                 Text="{Binding SelectedCar.Car.Year, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
                  Width="213"
                  Height="37"
@@ -87,7 +87,7 @@
                  Margin="149,180,0,0"
                  TextWrapping="Wrap"
                  FontSize="12"
-                 Text="{Binding Description}"
+                 Text="{Binding SelectedCar.Car.Description, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
                  Width="213"
                  Height="102"
@@ -159,6 +159,16 @@
                 Command="{Binding AddCarCmd}"
                 Grid.Column="1"
                 Grid.Row="2" />
+        
+        <Button Content="Opdatere"
+                FontSize="22"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Height="36"
+                Grid.Row="2"
+                Width="96"
+                Command="{Binding UpdateCarCmd}"
+                Margin="294,10,0,0" />
 
     </Grid>
 </Window>
