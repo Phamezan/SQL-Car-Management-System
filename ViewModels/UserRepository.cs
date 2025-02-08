@@ -89,5 +89,30 @@ namespace Første_SQL.ViewModels
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public List<User> RetrieveAll()
+        {
+            List<User> users = new List<User>();
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SELECT Id, Username, Password, IsAdmin FROM CAR", con);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User()
+                        {
+                            Id = reader.GetInt32(0),
+                            Username = reader.GetString(1),
+                            Password = reader.GetString(2),
+                            IsAdmin = reader.GetBoolean(3)
+                        };
+                        users.Add(user);
+                    }
+                }
+                return users;
+            }
+        }
     }
 }

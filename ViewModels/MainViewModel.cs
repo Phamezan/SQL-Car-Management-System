@@ -43,7 +43,7 @@ namespace Første_SQL.ViewModels
             Cars = new ObservableCollection<CarViewModel>();
             foreach (Car car in _carRepository.RetrieveAll())
             {
-                var carVM = new CarViewModel(car);
+                CarViewModel carVM = new CarViewModel(car);
                 Cars.Add(carVM);
             }
         }

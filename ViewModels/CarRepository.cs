@@ -61,9 +61,11 @@ namespace Første_SQL.ViewModels
 
         public List<Car> RetrieveAll()
         {
-            List<Car> cars = new List<Car>(); using (SqlConnection con = new SqlConnection(ConnectionString))
+            List<Car> cars = new List<Car>(); 
+            using (SqlConnection con = new SqlConnection(ConnectionString))
             {
-                con.Open(); SqlCommand cmd = new SqlCommand("SELECT Id, Make, Model, Year, Description FROM Car", con); using (SqlDataReader dr = cmd.ExecuteReader())
+                con.Open(); SqlCommand cmd = new SqlCommand("SELECT Id, Make, Model, Year, Description FROM Car", con); 
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -75,7 +77,8 @@ namespace Første_SQL.ViewModels
 
                             Year = dr.GetInt32(3),
                             Description = dr.GetString(4)
-                        }; cars.Add(car);
+                        }; 
+                        cars.Add(car);
                     }
                 }
             }

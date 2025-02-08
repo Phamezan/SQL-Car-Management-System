@@ -64,7 +64,6 @@ namespace Første_SQL.ViewModels
             }
         }
 
-
         public string Description
         {
             get => _car.Description;
