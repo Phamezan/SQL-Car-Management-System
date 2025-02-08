@@ -8,7 +8,6 @@ namespace Første_SQL.ViewModels
     {
         private CarRepository _carRepository;
         public ObservableCollection<CarViewModel> Cars { get; set; } // Liste af Cars som er binded til UI og er opdateret når SQL tabellen ændrer sig.
-        public Car Car { get; set; } // Et objekt som vi kan binde til UI
         
         public string Make { get; set; }
         public string Model { get; set; }
@@ -81,6 +80,7 @@ namespace Første_SQL.ViewModels
             {
                 _carRepository.Update(existingCar);
             }
+            RefreshList();
         }
         
         public void DeleteCar(CarViewModel carToBeDeleted)
@@ -89,10 +89,20 @@ namespace Første_SQL.ViewModels
             Cars.Remove(carToBeDeleted);
         }
 
+        public void RefreshList()
+        {
+            Cars.Clear();
+            foreach (Car car in _carRepository.RetrieveAll())
+            {
+                var carVM = new CarViewModel(car);
+                Cars.Add(carVM);
+            }
+        }
+
 
         //RelayCommands til UI Knapper
         public RelayCommand AddCarCmd => new RelayCommand(execute => AddCar());
-        public RelayCommand UpdateCarCmd => new RelayCommand(execute => UpdateCar(SelectedCar.Car));
+        public RelayCommand UpdateCarCmd => new RelayCommand(execute => UpdateCar(SelectedCar.Car), canExecute => SelectedCar != null && !String.IsNullOrEmpty(SelectedCar.Make) && !String.IsNullOrEmpty(SelectedCar.Model) && SelectedCar.Year.HasValue);
         public RelayCommand DeleteCarCmd => new RelayCommand(execute => DeleteCar(SelectedCar), canExecute => SelectedCar != null);
 
     }
