@@ -1,9 +1,10 @@
 ﻿using Første_SQL.Models;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Første_SQL.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
         private CarRepository _carRepository;
         public ObservableCollection<CarViewModel> Cars { get; set; } // Liste af Cars som er binded til UI og er opdateret når SQL tabellen ændrer sig.
@@ -13,7 +14,29 @@ namespace Første_SQL.ViewModels
         public string Model { get; set; }
         public int? Year { get; set; }
         public string Description { get; set; }
-        public CarViewModel SelectedCar { get; set; }
+
+
+        private CarViewModel _selectedCar;
+        public CarViewModel SelectedCar
+        {
+            get => _selectedCar;
+            set
+            {
+                if (_selectedCar != value)
+                {
+                    _selectedCar = value;
+                    OnPropertyChanged(nameof(SelectedCar));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void OnPropertyChanged(string propertyname)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+
         public MainViewModel()
         {
             _carRepository = new CarRepository();
@@ -57,7 +80,6 @@ namespace Første_SQL.ViewModels
             if (existingCar != null)
             {
                 _carRepository.Update(existingCar);
-
             }
         }
         
