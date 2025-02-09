@@ -54,7 +54,7 @@ namespace Første_SQL.ViewModels
             }
         }
 
-        public void RemoveUser(User userToBeDeleted)
+        public void DeleteUser(User userToBeDeleted)
         {
             if (userToBeDeleted != null)
             {                
@@ -87,5 +87,14 @@ namespace Første_SQL.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
+
+   
+
+        //Relaycommands
+
+        public RelayCommand AddUserCmd => new RelayCommand(execute => AddUser());
+        public RelayCommand DeleteUserCmd => new RelayCommand(execute => DeleteUser(SelectedUser), canExecute => SelectedUser != null);
+        public RelayCommand UpdateUserCmd => new RelayCommand(execute => UpdateUser(SelectedUser), canExecute => !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password));
+
     }
 }

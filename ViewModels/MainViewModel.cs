@@ -1,6 +1,8 @@
 ﻿using Første_SQL.Models;
+using Første_SQL.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
 namespace Første_SQL.ViewModels
 {
@@ -100,8 +102,15 @@ namespace Første_SQL.ViewModels
             }
         }
 
+        public void OpenManageUserWindow()
+        {
+            ManageUserWindow msw = new ManageUserWindow();
+            msw.Show();
+        }
 
         //RelayCommands til UI Knapper
+
+        public RelayCommand ManageUserWindowCmd => new RelayCommand(execute => OpenManageUserWindow());
         public RelayCommand AddCarCmd => new RelayCommand(execute => AddCar());
         public RelayCommand UpdateCarCmd => new RelayCommand(execute => UpdateCar(SelectedCar.Car), canExecute => SelectedCar != null && !String.IsNullOrEmpty(SelectedCar.Make) && !String.IsNullOrEmpty(SelectedCar.Model) && SelectedCar.Year.HasValue);
         public RelayCommand DeleteCarCmd => new RelayCommand(execute => DeleteCar(SelectedCar), canExecute => SelectedCar != null);

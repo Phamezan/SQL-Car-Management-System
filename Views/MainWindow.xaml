@@ -7,7 +7,8 @@
         Title="MainWindow"
         Height="450"
         Width="800"
-        Background="#303030" WindowStartupLocation="CenterScreen">
+        Background="#303030"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
@@ -49,7 +50,7 @@
                                     Width="60" />
                     <GridViewColumn Header="Description"
                                     DisplayMemberBinding="{Binding Description}"
-                                    Width="200" />
+                                    Width="150" />
                 </GridView>
             </ListView.View>
         </ListView>
@@ -170,13 +171,26 @@
 
         <Button Content="Opdatere"
                 FontSize="22"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
-                Height="36"
+                Height="40"
                 Grid.Row="2"
                 Width="96"
                 Command="{Binding UpdateCarCmd}"
-                Margin="294,10,0,0" />
+                Margin="0,5,0,0"
+                Grid.Column="1" />
+
+        <Button Grid.Column="1"
+                Content="Brugere"
+                Command="{Binding ManageUserWindowCmd}"
+                FontSize="16"
+                HorizontalAlignment="Left"
+                Margin="26,5,0,0"
+                Grid.Row="2"
+                VerticalAlignment="Top"
+                Height="38"
+                Width="65"
+                RenderTransformOrigin="0.905,0.462" />
 
     </Grid>
 </Window>

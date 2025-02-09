@@ -54,7 +54,7 @@ namespace Første_SQL.ViewModels
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO User (Username, Password, IsAdmin) " + "VALUES(@Username,@Password,@IsAdmin)" + "SELECT @@IDENTITY", con))
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO [User] (Username, Password, IsAdmin) " + "VALUES(@Username,@Password,@IsAdmin)" + "SELECT @@IDENTITY", con))
                 {
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = newUser.Username;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = newUser.Password;
@@ -70,7 +70,7 @@ namespace Første_SQL.ViewModels
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM User WHERE Id = @Id", con);
+                SqlCommand cmd = new SqlCommand("DELETE FROM [User] WHERE Id = @Id", con);
                 cmd.Parameters.AddWithValue("@Id", id);
                 cmd.ExecuteNonQuery();
             }
@@ -81,7 +81,7 @@ namespace Første_SQL.ViewModels
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE User SET Username = @Username, Password = @Password, IsAdmin = @IsAdmin WHERE Id = @Id", con);
+                SqlCommand cmd = new SqlCommand("UPDATE [User] SET Username = @Username, Password = @Password, IsAdmin = @IsAdmin WHERE Id = @Id", con);
                 cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = userToBeUpdated.Username;
                 cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = userToBeUpdated.Password;
                 cmd.Parameters.Add("@IsAdmin", SqlDbType.Bit).Value = userToBeUpdated.IsAdmin;
@@ -96,7 +96,7 @@ namespace Første_SQL.ViewModels
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT Id, Username, Password, IsAdmin FROM CAR", con);
+                SqlCommand cmd = new SqlCommand("SELECT Id, Username, Password, IsAdmin FROM [User]", con);
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())

@@ -4,9 +4,9 @@ using System.Windows;
 namespace Første_SQL.Views
 {
 
-    public partial class ManagaUserWindow : Window
+    public partial class ManageUserWindow : Window
     {
-        public ManagaUserWindow()
+        public ManageUserWindow()
         {
             InitializeComponent();
             DataContext = new ManageUserViewModel();
