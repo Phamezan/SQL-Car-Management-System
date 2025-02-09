@@ -30,23 +30,30 @@
                Width="140"
                Grid.RowSpan="2" />
 
-        <ListBox ItemsSource="{Binding Cars, UpdateSourceTrigger=PropertyChanged}"
-                 SelectedItem="{Binding SelectedCar}"
-                 Height="300"
-                 Margin="5"
-                 Grid.Row="1"
-                 Grid.Column="0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Make}" />
-                        <TextBlock Text="{Binding Model}" />
-                        <TextBlock Text="{Binding Year}" />
-                        <TextBlock Text="{Binding Description}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <ListView ItemsSource="{Binding Cars, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedCar}"
+                  Height="300"
+                  Margin="5"
+                  Grid.Row="1"
+                  Grid.Column="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Make"
+                                    DisplayMemberBinding="{Binding Make}"
+                                    Width="100" />
+                    <GridViewColumn Header="Model"
+                                    DisplayMemberBinding="{Binding Model}"
+                                    Width="100" />
+                    <GridViewColumn Header="Year"
+                                    DisplayMemberBinding="{Binding Year}"
+                                    Width="60" />
+                    <GridViewColumn Header="Description"
+                                    DisplayMemberBinding="{Binding Description}"
+                                    Width="200" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
 
         <TextBox HorizontalAlignment="Left"
                  Grid.Row="1"
