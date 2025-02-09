@@ -120,6 +120,7 @@
                Grid.Row="1" />
         
         <CheckBox Grid.Column="1"
+                  IsChecked="{Binding SelectedUser.IsAdmin}"
                   HorizontalAlignment="Left"
                   Margin="350,130,0,0"
                   Grid.Row="1"

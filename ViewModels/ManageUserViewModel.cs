@@ -8,10 +8,10 @@ namespace Første_SQL.ViewModels
     public class ManageUserViewModel : INotifyPropertyChanged
     {
         private UserRepository _userRepository;
-        public ObservableCollection<User> Users { get; set; }
+        public ObservableCollection<UserViewModel> Users { get; set; } = new ObservableCollection<UserViewModel>();
 
-        private User _selectedUser;
-        public User SelectedUser
+        private UserViewModel _selectedUser;
+        public UserViewModel SelectedUser
         {
             get => _selectedUser;
             set
@@ -23,18 +23,14 @@ namespace Første_SQL.ViewModels
                 }
             }
         }
-
-
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public bool IsAdmin { get; set; }
         
         public ManageUserViewModel()
         {
             _userRepository = new UserRepository();
-            Users = new ObservableCollection<User>();
 
             RefreshList();
+
+            SelectedUser = new UserViewModel(new User());
 
         }
 
@@ -42,26 +38,30 @@ namespace Første_SQL.ViewModels
         {
             User newUser = new User()
             {
-                Username = this.UserName,
-                Password = this.Password,
-                IsAdmin = this.IsAdmin,
+                Username = SelectedUser.Username,
+                Password = SelectedUser.Password,
+                IsAdmin = SelectedUser.IsAdmin
             };
 
             if (newUser != null)
             {
                 _userRepository.Add(newUser);
-                Users.Add(newUser);
+                var newUserVM = new UserViewModel(newUser);
+                Users.Add(newUserVM);
             }
+
+            SelectedUser = new UserViewModel(new User());
         }
 
-        public void DeleteUser(User userToBeDeleted)
+        public void DeleteUser(UserViewModel userToBeDeleted)
         {
             if (userToBeDeleted != null)
             {                
-               _userRepository.Delete(userToBeDeleted.Id);
+               _userRepository.Delete(userToBeDeleted.User.Id);
                Users.Remove(userToBeDeleted);
 
             }
+            SelectedUser = new UserViewModel(new User());
         }
 
         public void UpdateUser(User user)
@@ -69,15 +69,17 @@ namespace Første_SQL.ViewModels
             if (user != null)
             {
                 _userRepository.Update(user);
-                RefreshList();
             }
+                RefreshList();
         }
 
         public void RefreshList()
         {
+            Users.Clear();
             foreach (User user in _userRepository.RetrieveAll())
             {
-                Users.Add(user);
+                var UserVM = new UserViewModel(user);
+                Users.Add(UserVM);
             }
         }
 
@@ -94,7 +96,7 @@ namespace Første_SQL.ViewModels
 
         public RelayCommand AddUserCmd => new RelayCommand(execute => AddUser());
         public RelayCommand DeleteUserCmd => new RelayCommand(execute => DeleteUser(SelectedUser), canExecute => SelectedUser != null);
-        public RelayCommand UpdateUserCmd => new RelayCommand(execute => UpdateUser(SelectedUser), canExecute => !string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Password));
+        public RelayCommand UpdateUserCmd => new RelayCommand(execute => UpdateUser(SelectedUser.User), canExecute => SelectedUser != null && !string.IsNullOrEmpty(SelectedUser.Username) && !string.IsNullOrEmpty(SelectedUser.Password));
 
     }
 }
