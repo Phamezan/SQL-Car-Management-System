@@ -24,7 +24,6 @@ namespace Første_SQL.ViewModels
             }
         }
 
-
         private string _search;
         public string Search
         {
@@ -35,6 +34,7 @@ namespace Første_SQL.ViewModels
                 {
                     _search = value;
                     OnPropertyChanged(nameof(Search));
+                    SearchButton();
                 }
             }
         }
@@ -56,16 +56,16 @@ namespace Første_SQL.ViewModels
             SelectedCar = new CarViewModel(new Car());
         }
 
-        public void AddCar() 
+        public void AddCar()
         {
-                Car newCar = new Car
-                {
-                    Make = SelectedCar.Car.Make,
-                    Model = SelectedCar.Car.Model,
-                    Year = SelectedCar.Car.Year,
-                    Description = SelectedCar.Car.Description
-                };
-                _carRepository.Create(newCar);
+            Car newCar = new Car
+            {
+                Make = SelectedCar.Car.Make,
+                Model = SelectedCar.Car.Model,
+                Year = SelectedCar.Car.Year,
+                Description = SelectedCar.Car.Description
+            };
+            _carRepository.Create(newCar);
 
             var newCarVM = new CarViewModel(newCar);
             Cars.Add(newCarVM);
@@ -81,18 +81,18 @@ namespace Første_SQL.ViewModels
                 _carRepository.Update(existingCar);
             }
             RefreshList();
-            
+
         }
-        
+
         public void DeleteCar(CarViewModel carToBeDeleted)
         {
-          _carRepository.Delete(carToBeDeleted.Car.Id);
+            _carRepository.Delete(carToBeDeleted.Car.Id);
             Cars.Remove(carToBeDeleted);
 
             SelectedCar = new CarViewModel(new Car());
         }
 
-        public void RefreshList() 
+        public void RefreshList()
         {
             Cars.Clear();
             foreach (Car car in _carRepository.RetrieveAll())
@@ -116,9 +116,9 @@ namespace Første_SQL.ViewModels
             }
             else
             {
-            _carRepository.Search(Search);
+                _carRepository.Search(Search);
                 Cars.Clear();
-                foreach(var car in _carRepository.GetCars())
+                foreach (var car in _carRepository.GetCars())
                 {
                     var carVM = new CarViewModel(car);
                     Cars.Add(carVM);
@@ -132,6 +132,5 @@ namespace Første_SQL.ViewModels
         public RelayCommand AddCarCmd => new RelayCommand(execute => AddCar());
         public RelayCommand UpdateCarCmd => new RelayCommand(execute => UpdateCar(SelectedCar.Car), canExecute => SelectedCar != null && !String.IsNullOrEmpty(SelectedCar.Make) && !String.IsNullOrEmpty(SelectedCar.Model) && SelectedCar.Year.HasValue);
         public RelayCommand DeleteCarCmd => new RelayCommand(execute => DeleteCar(SelectedCar), canExecute => SelectedCar != null);
-        public RelayCommand SearchCmd => new RelayCommand(execute => SearchButton());
     }
 }

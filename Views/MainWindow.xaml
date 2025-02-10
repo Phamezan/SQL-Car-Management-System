@@ -196,21 +196,21 @@
                  Margin="195,10,0,0"
                  Grid.Row="2"
                  TextWrapping="Wrap"
-                 Text="{Binding Search, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                 Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="16"
                  Padding="3"
                  VerticalAlignment="Top"
                  Width="195"
                  Height="30" />
         
-        <Button Content="Søg"
-                HorizontalAlignment="Left"
-                Margin="156,10,0,0"
-                Grid.Row="2"
-                Command="{Binding SearchCmd}"
-                VerticalAlignment="Top"
-                Width="34"
-                Height="30" />
+        <Label Content="Søg"
+               Foreground="White"
+               FontSize="16"
+               HorizontalAlignment="Left"
+               Margin="153,8,0,0"
+               Grid.Row="2"
+               VerticalAlignment="Top"
+               RenderTransformOrigin="0.978,0.463" />
 
     </Grid>
 </Window>
