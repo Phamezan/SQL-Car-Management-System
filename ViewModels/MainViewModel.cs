@@ -24,6 +24,22 @@ namespace Første_SQL.ViewModels
             }
         }
 
+
+        private string _search;
+        public string Search
+        {
+            get => _search;
+            set
+            {
+                if (_search != value)
+                {
+                    _search = value;
+                    OnPropertyChanged(nameof(Search));
+                }
+            }
+        }
+
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnPropertyChanged(string propertyname)
@@ -92,12 +108,30 @@ namespace Første_SQL.ViewModels
             msw.Show();
         }
 
+        public void SearchButton()
+        {
+            if (string.IsNullOrWhiteSpace(Search))
+            {
+                RefreshList();
+            }
+            else
+            {
+            _carRepository.Search(Search);
+                Cars.Clear();
+                foreach(var car in _carRepository.GetCars())
+                {
+                    var carVM = new CarViewModel(car);
+                    Cars.Add(carVM);
+                }
+            }
+        }
+
         //RelayCommands til UI Knapper
 
         public RelayCommand ManageUserWindowCmd => new RelayCommand(execute => OpenManageUserWindow());
         public RelayCommand AddCarCmd => new RelayCommand(execute => AddCar());
         public RelayCommand UpdateCarCmd => new RelayCommand(execute => UpdateCar(SelectedCar.Car), canExecute => SelectedCar != null && !String.IsNullOrEmpty(SelectedCar.Make) && !String.IsNullOrEmpty(SelectedCar.Model) && SelectedCar.Year.HasValue);
         public RelayCommand DeleteCarCmd => new RelayCommand(execute => DeleteCar(SelectedCar), canExecute => SelectedCar != null);
-
+        public RelayCommand SearchCmd => new RelayCommand(execute => SearchButton());
     }
 }
