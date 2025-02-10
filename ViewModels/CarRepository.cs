@@ -33,7 +33,7 @@ namespace Første_SQL.ViewModels
                     con.Open();
                     using (SqlCommand cmd = new SqlCommand("SELECT * FROM Car WHERE Make LIKE @Make", con))
                     {
-                        cmd.Parameters.AddWithValue("@Make", "%" + carName + "%");
+                        cmd.Parameters.AddWithValue("@Make", $"%{carName}%");
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
