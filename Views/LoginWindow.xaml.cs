@@ -9,7 +9,8 @@ namespace Første_SQL.Views
         public LoginWindow()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
+            NavigationService navigationService = new NavigationService();
+            DataContext = new LoginViewModel(navigationService);
         }
     }
 }

@@ -9,7 +9,8 @@ namespace Første_SQL
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            NavigationService navigationService = new NavigationService();
+            DataContext = new MainViewModel(navigationService);
         }
     }
 }

@@ -1,16 +1,19 @@
 ﻿using Første_SQL.Models;
+using Første_SQL.Views;
 using System.Windows;
 
 namespace Første_SQL.ViewModels
 {
     public class LoginViewModel
     {
+        private readonly NavigationService _navigationService;
         private UserRepository _userRepository;
         public string Username { get; set; }
         public string Password { get; set; }
-        public LoginViewModel()
+        public LoginViewModel(NavigationService navigationService)
         {
             _userRepository = new UserRepository();
+            _navigationService = navigationService;
         }
 
         public void Login()
@@ -21,8 +24,8 @@ namespace Første_SQL.ViewModels
 
                 if (loggedInUser != null)
                 {
-                    MainWindow mw = new MainWindow();
-                    mw.Show();
+                    _navigationService.OpenWindow<MainWindow>();
+                    _navigationService.CloseWindow<LoginWindow>();
                 }
                 else
                 {

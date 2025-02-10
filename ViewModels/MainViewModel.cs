@@ -7,6 +7,7 @@ namespace Første_SQL.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private readonly NavigationService _navigationService;
         private CarRepository _carRepository;
         public ObservableCollection<CarViewModel> Cars { get; set; } = new ObservableCollection<CarViewModel>();
 
@@ -47,13 +48,14 @@ namespace Første_SQL.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
 
-        public MainViewModel()
+        public MainViewModel(NavigationService navigationService)
         {
             _carRepository = new CarRepository();
 
             RefreshList();
 
             SelectedCar = new CarViewModel(new Car());
+            _navigationService = navigationService;
         }
 
         public void AddCar()
@@ -104,8 +106,8 @@ namespace Første_SQL.ViewModels
 
         public void OpenManageUserWindow()
         {
-            ManageUserWindow msw = new ManageUserWindow();
-            msw.Show();
+            _navigationService.OpenWindow<ManageUserWindow>();
+            _navigationService.CloseWindow<MainWindow>();
         }
 
         public void SearchButton()
