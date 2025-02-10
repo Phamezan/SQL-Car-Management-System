@@ -9,7 +9,8 @@ namespace Første_SQL.Views
         public ManageUserWindow()
         {
             InitializeComponent();
-            DataContext = new ManageUserViewModel();
+            NavigationService ns = new NavigationService();
+            DataContext = new ManageUserViewModel(ns);
         }
     }
 }

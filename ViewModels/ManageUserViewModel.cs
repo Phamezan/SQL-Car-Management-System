@@ -1,4 +1,5 @@
 ﻿using Første_SQL.Models;
+using Første_SQL.Views;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -7,6 +8,7 @@ namespace Første_SQL.ViewModels
 
     public class ManageUserViewModel : INotifyPropertyChanged
     {
+        private readonly NavigationService _navigationService;
         private UserRepository _userRepository;
         public ObservableCollection<UserViewModel> Users { get; set; } = new ObservableCollection<UserViewModel>();
 
@@ -24,7 +26,7 @@ namespace Første_SQL.ViewModels
             }
         }
         
-        public ManageUserViewModel()
+        public ManageUserViewModel(NavigationService navigationService)
         {
             _userRepository = new UserRepository();
 
@@ -32,6 +34,7 @@ namespace Første_SQL.ViewModels
 
             SelectedUser = new UserViewModel(new User());
 
+            _navigationService = navigationService;
         }
 
         public void AddUser()
@@ -90,13 +93,17 @@ namespace Første_SQL.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
 
-   
+        public void ReturnToMainWindow()
+        {
+            _navigationService.OpenWindow<MainWindow>();
+            _navigationService.CloseWindow<ManageUserWindow>();
+        }
 
         //Relaycommands
 
         public RelayCommand AddUserCmd => new RelayCommand(execute => AddUser());
         public RelayCommand DeleteUserCmd => new RelayCommand(execute => DeleteUser(SelectedUser), canExecute => SelectedUser != null);
         public RelayCommand UpdateUserCmd => new RelayCommand(execute => UpdateUser(SelectedUser.User), canExecute => SelectedUser != null && !string.IsNullOrEmpty(SelectedUser.Username) && !string.IsNullOrEmpty(SelectedUser.Password));
-
+        public RelayCommand ReturnCmd => new RelayCommand(execute => ReturnToMainWindow());
     }
 }

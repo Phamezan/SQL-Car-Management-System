@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Første_SQL.Views"
         mc:Ignorable="d"
-        Title="ManageUserWindow" Foreground="White"
+        Title="ManageUserWindow"
+        Foreground="White"
         Height="450"
         Width="800"
         Background="#303030"
         WindowStartupLocation="CenterScreen">
-    
-    
-    
+
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
@@ -23,10 +24,10 @@
             <RowDefinition Height="300" />
             <RowDefinition Height="70" />
         </Grid.RowDefinitions>
-        
-        
-        
-        
+
+
+
+
         <ListView ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedUser}"
                   Height="300"
@@ -84,7 +85,7 @@
                  Width="213"
                  Height="37"
                  Margin="149,61,0,0" />
-        
+
         <Label Content="Brugernavn"
                FontSize="20"
                Foreground="White"
@@ -107,7 +108,7 @@
                Width="135"
                RenderTransformOrigin="0.578,1.813"
                Margin="9,61,0,0" />
-        
+
         <Label Content="Administrator?"
                FontSize="20"
                Foreground="White"
@@ -118,7 +119,7 @@
                Width="145"
                Grid.Column="1"
                Grid.Row="1" />
-        
+
         <CheckBox Grid.Column="1"
                   IsChecked="{Binding SelectedUser.IsAdmin}"
                   HorizontalAlignment="Left"
@@ -141,7 +142,7 @@
                 Grid.Row="2"
                 Width="125"
                 Command="{Binding DeleteUserCmd}"
-                Margin="5,10,0,0" />
+                Margin="265,10,0,0" />
 
         <Button Content="Tilføj bruger"
                 FontSize="20"
@@ -165,6 +166,16 @@
                 Margin="92,244,0,0"
                 Grid.Column="1"
                 RenderTransformOrigin="0.563,-1.059" />
+
+        <Button Content="Tilbage"
+                FontSize="24"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Height="36"
+                Grid.Row="2"
+                Width="125"
+                Command="{Binding ReturnCmd}"
+                Margin="5,10,0,0" />
 
     </Grid>
 </Window>
