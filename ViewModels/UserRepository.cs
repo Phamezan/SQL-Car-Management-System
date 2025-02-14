@@ -27,7 +27,7 @@ namespace Første_SQL.ViewModels
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT Id, Username, Password FROM [User] WHERE Username = @Username AND Password = @Password", con))
+                using (SqlCommand cmd = new SqlCommand("SELECT Id, Username, Password, IsAdmin FROM [User] WHERE Username = @Username AND Password = @Password", con))
                 {
                     cmd.Parameters.AddWithValue("@Username", username);
                     cmd.Parameters.AddWithValue("@Password", password);
@@ -40,7 +40,8 @@ namespace Første_SQL.ViewModels
                             {
                                 Id = reader.GetInt32(0),
                                 Username = reader.GetString(1),
-                                Password = reader.GetString(2)
+                                Password = reader.GetString(2),
+                                IsAdmin = reader.GetBoolean(3)
                             };
                         }
                     }

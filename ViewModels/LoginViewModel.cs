@@ -22,17 +22,20 @@ namespace Første_SQL.ViewModels
             {
                 User loggedInUser = _userRepository.UserLogin(Username, Password);
 
-                if (loggedInUser != null)
+                if (loggedInUser != null && loggedInUser.IsAdmin == true)
                 {
                     _navigationService.OpenWindow<MainWindow>();
                     _navigationService.CloseWindow<LoginWindow>();
                 }
-                else
+                else if (loggedInUser != null && loggedInUser.IsAdmin == false)
+                {
+                    MessageBox.Show("Brugerlogin åbner");
+                }
+                else 
                 {
                     MessageBox.Show("Forkert brugernavn eller adgangskode, prøv igen", "Forkert Login", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
         }
 
         public RelayCommand LoginCmd => new RelayCommand(execute => Login());
