@@ -37,11 +37,10 @@
                VerticalAlignment="Top"
                Height="43"
                Width="131" />
-        <TextBox HorizontalAlignment="Left"
+        <PasswordBox HorizontalAlignment="Left"
                  FontSize="24"
-                 Text="{Binding Password}"
+                 Name="PasswordBox"
                  Margin="188,262,0,0"
-                 TextWrapping="Wrap"
                  VerticalAlignment="Top"
                  Width="235"
                  Height="43" />
