@@ -129,6 +129,15 @@ namespace Første_SQL.ViewModels
             }
         }
 
+        public void SelectedItem(object parameter)
+        {
+            if (parameter is CarViewModel selectedCar)
+            {
+                SelectedCar = selectedCar;
+                OnPropertyChanged(nameof(SelectedCar));
+            }
+        }
+
         public void ReturnToLoginWindow()
         {
             _navigationService.OpenWindow<LoginWindow>();
@@ -141,7 +150,7 @@ namespace Første_SQL.ViewModels
         public RelayCommand AddCarCmd => new RelayCommand(execute => AddCar());
         public RelayCommand UpdateCarCmd => new RelayCommand(execute => UpdateCar(SelectedCar.Car), canExecute => SelectedCar != null && !String.IsNullOrEmpty(SelectedCar.Make) && !String.IsNullOrEmpty(SelectedCar.Model) && SelectedCar.Year.HasValue);
         public RelayCommand DeleteCarCmd => new RelayCommand(execute => DeleteCar(SelectedCar), canExecute => SelectedCar != null);
-
         public RelayCommand LogOutCmd => new RelayCommand(execute => ReturnToLoginWindow());
+        public RelayCommand SelectedCarCmd => new RelayCommand(parameter => SelectedItem(parameter));
     }
 }
